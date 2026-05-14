@@ -25,7 +25,31 @@
 // ============================================================
 
 function topKWords(words, k) {
-  // YOUR CODE HERE
+  
+  // create freqMap of words -> first loop
+  const wordMap = new Map();
+  // create result array the length of k, init with empty strings
+  
+  for (const word of words) {
+    // fill the result array with the first string
+    wordMap.set(word, (wordMap.get(word) || 0) + 1);
+  } 
+  
+  // create an array from the map keys
+ const sorted = Array.from(wordMap.keys());
+ 
+ // sort the array, finding the freq value from the map and localeCompare (called on one string, pass in the other -> takes case and accents into account);
+ sorted.sort((a, b) => {
+  // if the values are the same, sort alphabetically
+  if (wordMap.get(a) === wordMap.get(b)) {
+    return a.localeCompare(b);
+  }
+  //then sort by value;
+  return wordMap.get(b) - wordMap.get(a);
+ })
+  
+ // then slice off all but the first k sorted elements
+  return sorted.slice(0, k);
 
 }
 

@@ -19,7 +19,23 @@
 // ============================================================
 
 function firstUniqueChar(s) {
-  // YOUR CODE HERE
+  // create freqMap of s - how many times each ch occurs
+  const freqMap = new Map();
+  // create idx map of s - index of each ch
+  const idxMap = new Map();
+  const cleanedS = s.split(' ').join('');
+
+  for (let i = 0; i < cleanedS.length; i++) {
+    freqMap.set(cleanedS[i], (freqMap.get(cleanedS[i]) || 0) + 1);
+  }
+  for (let i = 0; i < cleanedS.length; i++) {
+    let curr = cleanedS[i];
+    if (freqMap.get(curr) === 1) {
+      return i;
+    }
+  }
+  return -1;
+
 
 }
 
@@ -47,12 +63,12 @@ function test(description, input, expected) {
 
 console.log("\n🔤 First Unique Character Tests\n");
 
-test('Unique char at end',             "abacabad",   6);
+test('Unique char at end',             "abacabad",   3);
 test('No unique chars',                "aabbcc",     -1);
 test('Single character string',        "z",          0);
 test('All unique — returns first',     "abcde",      0);
 test('Unique char at start',           "abba",       -1);
-test('Unique char in the middle',      "aabcca",     3);
+test('Unique char in the middle',      "aabcca",     2);
 test('Two unique chars — first wins',  "xxyzz",      2);
 test('Long repeated prefix',           "aaaaaab",    6);
 test('Repeated pairs, one odd one out',"ccddeeaf",   6);
