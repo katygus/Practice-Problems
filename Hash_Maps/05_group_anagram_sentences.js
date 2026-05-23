@@ -47,9 +47,27 @@
 //   - No leading, trailing, or double spaces
 // ============================================================
 
-function groupAnagramSentences(sentences) {
-  // YOUR CODE HERE
 
+//input: flat array of strings (sentences)
+//output: nested arrays of strings (anagram sentences)
+
+// look for frequencies of combinations of letters
+// save all possible combinations of the same letters to an array
+// return those arrays as subarrays
+function groupAnagramSentences(sentences) {
+  // freq map with key of the string, split, sorted, joined and val of array of all string els that match
+  const freq = new Map();
+  for (const sent of sentences) {
+    const key = sent.split('').sort().join('');
+    const val = freq.get(key) || [];
+    val.push(sent);
+    freq.set(key, val);
+  }
+  const result = [];
+  for (const [key, val] of freq) {
+    result.push(val);
+  }
+  return result;
 }
 
 // ============================================================
